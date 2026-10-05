@@ -18,7 +18,7 @@ The project follows the medallion architecture.
 
 6 CSV files from 2 systems:
 
-| System | File | What it holds |
+| System | File | What it has |
 |--------|------|---------------|
 | CRM | `cust_info.csv` | Customer details |
 | CRM | `prd_info.csv` | Product details |
