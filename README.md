@@ -10,7 +10,7 @@ I built a data lakehouse in Databricks that takes raw CSV files from two source 
 ## The Big Picture
 
 The project follows the medallion architecture.
-![Architecture diagram](Data_lakehouse.jpg)
+![Architecture diagram](Data%20lakehouse.jpg)
 
 ---
 
