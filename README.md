@@ -7,7 +7,7 @@ I built a data lakehouse in Databricks that takes raw CSV files from two source 
 
 ---
 
-## The Big Picture
+## Project overview
 
 The project follows the medallion architecture.
 ![Architecture diagram](Data%20lakehouse.jpg)
@@ -15,8 +15,7 @@ The project follows the medallion architecture.
 ---
 
 ## Source Data
-
-6 CSV files from 2 systems:
+The data comes from a public data set. They are imported to Databricks to simulate data coming from ERP and CRM.
 
 | System | File | What it has |
 |--------|------|---------------|
@@ -25,7 +24,7 @@ The project follows the medallion architecture.
 | CRM | `sales_details.csv` | Sales orders |
 | ERP | `CUST_AZ12.csv` | Customer birth date and gender |
 | ERP | `LOC_A101.csv` | Customer country |
-| ERP | `PX_CAT_G1V2.csv` | Product categories |
+| ERP | `PX_CAT_G1V2.csv` | Product categories and sub-categories|
 
 ---
 
@@ -37,7 +36,8 @@ The project follows the medallion architecture.
 - Each file is saved as a Delta table.
 
 ### Silver: clean the data
-One notebook per table. Common steps in all of them: remove extra spaces from text columns and rename columns to clear names (for example `cst_gndr` → `gender`).
+One notebook per table. Each table requires different transformation steps.
+Common steps in all of them: remove extra spaces from text columns and rename columns to clear names (for example `cst_gndr` → `gender`).
 
 ### Gold: build the reporting tables
 The Gold layer is a **star schema**: one fact table in the middle, with dimension tables around it.
@@ -48,8 +48,8 @@ The Gold layer is a **star schema**: one fact table in the middle, with dimensio
 | `dim_products` | Dimension | One row per product. Joins CRM products with ERP categories. |
 | `fact_sales` | Fact | One row per sales order line, linked to the customer and product tables, with dates, amount, quantity and price. |
 
-Both dimension tables have a generated **surrogate key** (`customer_key`, `product_key`). The fact table uses these keys to link back to them.
-
-`gold_orchestration.py` runs the three Gold notebooks in the right order (dimensions first, then the fact table). It can be used as a single entry point for a Databricks Job.
+## Pipeline orchestration
+The orchestration is done using Jobs in Databricks.
+In the gold layer, `gold_orchestration.py` runs the three Gold notebooks in the right order (dimensions first, then the fact table).
 
 ---
