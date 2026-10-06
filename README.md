@@ -10,6 +10,7 @@ I built a data lakehouse in Databricks that takes raw CSV files from two source 
 ## Project overview
 
 The project follows the medallion architecture.
+
 ![Architecture diagram](Data%20lakehouse.jpg)
 
 ---
@@ -51,5 +52,7 @@ The Gold layer is a **star schema**: one fact table in the middle, with dimensio
 ## Pipeline orchestration
 The orchestration is done using Jobs in Databricks.
 In the gold layer, `gold_orchestration.py` runs the three Gold notebooks in the right order (dimensions first, then the fact table).
+
+![Pipeline orchestration](Pipeline%20orchestration.png)
 
 ---
