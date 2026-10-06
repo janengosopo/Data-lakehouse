@@ -3,7 +3,7 @@
 
 I built a data lakehouse in Databricks that takes raw CSV files from two source systems (CRM and ERP), cleans them, and turns them into tables that are ready for sales reporting.
 
-**Tools used:** Databricks, PySpark, Spark SQL, Delta Lake
+**Tools used:** Databricks, PySpark, Spark SQL
 
 ---
 
